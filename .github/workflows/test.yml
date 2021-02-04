@@ -26,19 +26,8 @@ jobs:
         with:
           go-version: 1.15
       
-      - name: Setup TFLint
-        uses: lablabs/setup-tflint@v1
-      
       - name: Terraform fmt
         run: terraform fmt --check --recursive
-      
-      - name: tflint acm-certificate
-        working-directory: modules/acm-certificate
-        run: tflint --deep --modules
-
-      - name: tflint static-website
-        working-directory: modules/static-website
-        run: tflint --deep --modules
       
       - name: Terratest
         working-directory: test
