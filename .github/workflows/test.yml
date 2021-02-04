@@ -27,7 +27,7 @@ jobs:
           go-version: 1.15
       
       - name: Setup TFLint
-        uses: lablabs/setup-tflint@1.0.3
+        uses: lablabs/setup-tflint@v1
       
       - name: Terraform fmt
         run: terraform fmt --check --recursive
