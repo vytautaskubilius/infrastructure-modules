@@ -1,0 +1,45 @@
+name: Test
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: HashiCorp - Setup Terraform
+        uses: hashicorp/setup-terraform@v1.2.1
+        with:
+          terraform_version: 0.13.5
+          
+      - name: Setup Go environment
+        uses: actions/setup-go@v2.1.3
+        with:
+          go-version: 1.15
+      
+      - name: Setup TFLint
+        uses: lablabs/setup-tflint@1.0.3
+      
+      - name: Terraform fmt
+        run: terraform fmt --check --recursive
+      
+      - name: tflint acm-certificate
+        working-directory: modules/acm-certificate
+        run: tflint --deep --modules
+
+      - name: tflint static-website
+        working-directory: modules/static-website
+        run: tflint --deep --modules
+      
+      - name: Terratest
+        working-directory: test
+        run: go test -v -timeout 30m
