@@ -1,6 +1,9 @@
 resource "aws_vpc" "vpc" {
   cidr_block = var.cidr_block
-  tags       = local.common_tags
+  tags       = merge({
+    Name = var.name
+  },
+  local.common_tags)
 }
 
 resource "aws_internet_gateway" "igw" {
