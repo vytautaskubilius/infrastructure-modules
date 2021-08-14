@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "instance_profile" {
       "s3:ListBucket",
       "s3:*Object*"
     ]
-    effect    = "Allow"
+    effect = "Allow"
     resources = [
       aws_s3_bucket.backup.arn,
       "${aws_s3_bucket.backup.arn}/*"
