@@ -82,6 +82,9 @@ resource "aws_iam_role_policy" "wordpress" {
 resource "aws_s3_bucket" "backup" {
   bucket = "${var.domain}-backup"
   acl    = "private"
+  versioning {
+    enabled = true
+  }
 }
 
 resource "aws_route53_record" "root" {
