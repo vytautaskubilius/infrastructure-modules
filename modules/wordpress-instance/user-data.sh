@@ -87,4 +87,27 @@ sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 sudo certbot --apache --non-interactive --agree-tos -m vytautas.kubilius@gmail.com --domains ${domain},www.${domain}
 
+# Create backup and restore scripts
+
+sudo mkdir /opt/scripts
+sudo chown ubuntu:ubuntu /opt/scripts
+
+sudo cat <<EOT >> /opt/scripts/backup.sh
+mysqldump -u root -p${mysql_root_password} -A -B > dump.sql
+tar Pczf backup.tar.gz /var/www/kumetynas.lt dump.sql
+aws s3 cp backup.tar.gz s3://kumetynas.lt-backup/backup.tar.gz
+EOT
+
+sudo cat <<EOT >> /opt/scripts/restore.sh
+aws s3 cp s3://kumetynas.lt-backup/backup.tar.gz backup.tar.gz
+tar Pxzf backup.tar.gz
+mysql -u root -p${mysql_root_password} < dump.sql
+EOT
+
+# Create a cron job to perform daily backups
+
+sudo crontab<<EOT
+0 3 * * * /opt/scripts/backup.sh
+EOT
+
 sudo systemctl reload apache2
