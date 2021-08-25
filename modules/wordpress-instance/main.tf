@@ -85,6 +85,20 @@ resource "aws_s3_bucket" "backup" {
   versioning {
     enabled = true
   }
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "aws:kms"
+      }
+    }
+  }
+  lifecycle_rule {
+    enabled = true
+
+    expiration {
+      days = 14
+    }
+  }
 }
 
 resource "aws_route53_record" "root" {
