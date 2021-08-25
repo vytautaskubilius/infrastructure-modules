@@ -1,26 +1,19 @@
 resource "aws_vpc" "vpc" {
   cidr_block = var.cidr_block
-  tags       = merge({
-    Name = var.name
-  },
-  local.common_tags)
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
-  tags   = local.common_tags
 }
 
 resource "aws_subnet" "public" {
   cidr_block              = cidrsubnet(var.cidr_block, 4, 0)
   vpc_id                  = aws_vpc.vpc.id
   map_public_ip_on_launch = true
-  tags                    = local.common_tags
 }
 
 resource "aws_route_table" "rt_public" {
   vpc_id = aws_vpc.vpc.id
-  tags   = local.common_tags
 }
 
 resource "aws_route" "default_public" {
