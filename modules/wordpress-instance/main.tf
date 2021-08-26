@@ -1,11 +1,11 @@
 resource "aws_instance" "wordpress" {
-  ami                  = data.aws_ami.ubuntu.id
-  instance_type        = var.instance_type
-  key_name             = var.key_pair_name
-  subnet_id            = var.subnet_id
-  user_data            = data.template_file.user_data.rendered
-  iam_instance_profile = aws_iam_instance_profile.wordpress.name
-  security_groups      = [aws_security_group.wordpress.id]
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = var.instance_type
+  key_name               = var.key_pair_name
+  subnet_id              = var.subnet_id
+  user_data              = data.template_file.user_data.rendered
+  iam_instance_profile   = aws_iam_instance_profile.wordpress.name
+  vpc_security_group_ids = [aws_security_group.wordpress.id]
 }
 
 resource "aws_security_group" "wordpress" {
