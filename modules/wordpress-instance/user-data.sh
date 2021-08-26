@@ -107,7 +107,7 @@ EOT
 # Create a cron job to perform daily backups
 
 sudo crontab<<EOT
-0 3 * * * /opt/scripts/backup.sh
+0 3 * * * bash /opt/scripts/backup.sh
 EOT
 
 sudo systemctl reload apache2
