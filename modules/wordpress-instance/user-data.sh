@@ -94,12 +94,12 @@ sudo chown ubuntu:ubuntu /opt/scripts
 
 sudo cat <<EOT >> /opt/scripts/backup.sh
 mysqldump -u root -p${mysql_root_password} -A -B > dump.sql
-tar Pczf backup.tar.gz /var/www/kumetynas.lt dump.sql
-aws s3 cp backup.tar.gz s3://kumetynas.lt-backup/backup.tar.gz
+tar Pczf backup.tar.gz /var/www/${domain} dump.sql
+aws s3 cp backup.tar.gz s3://${domain}-backup/backup.tar.gz
 EOT
 
 sudo cat <<EOT >> /opt/scripts/restore.sh
-aws s3 cp s3://kumetynas.lt-backup/backup.tar.gz backup.tar.gz
+aws s3 cp s3://${domain}-backup/backup.tar.gz backup.tar.gz
 tar Pxzf backup.tar.gz
 mysql -u root -p${mysql_root_password} < dump.sql
 EOT
