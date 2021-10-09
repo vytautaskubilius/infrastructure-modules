@@ -1,6 +1,7 @@
 # Route53 DNS record
 
-This simple module takes a map of DNS records and creates them in AWS Route53.
+This simple module takes a map of DNS records and creates them in AWS Route53. The keys in the `record_map` must be
+unique.
 
 # Usage
 
@@ -16,13 +17,30 @@ dependency "hosted_zone" {
 inputs = {
   hosted_zone_id = dependency.hosted_zone.outputs.hosted_zone_id
   record_map = {
-    "www.example.cpm" = {
+    "www.dontpanic.lt" = {
+      name = "www.dontpanic.lt"
       type = "CNAME"
       records = ["example.com"]
     },
-    "api.kumetynas.lt" = {
+    "api.dontpanic.lt" = {
+      name = "api.dontpanic.lt"
       type = "A"
       records = ["1.2.3.4"]
+    },
+    "dontpanic.lt-mx" = {
+      name = "dontpanic.lt"
+      type = "MX"
+      records = [
+        "10 mx1.example.com",
+        "20 mx2.example.com"
+      ]
+    },
+    "dontpanic.lt-txt" = {
+      name = "dontpanic.lt"
+      type = "TXT"
+      records = [
+        "example"
+      ]
     }
   }
 }
