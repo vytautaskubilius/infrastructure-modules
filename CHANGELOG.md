@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2021-10-09
+
+## Changed
+
+- The `route53_dns_record` module now requires the DNS record name to be provided as a value instead of it being read
+  in from the map key.
+  - This is to allow for the creation of multiple records of different types with the same name.
+
 ## [0.2.4] - 2021-08-30
 
 ## Changed
@@ -57,6 +65,7 @@ Instead, the tags should be specified via the `default_tags` block in the `aws` 
 - Module for creating auto-validating ACM certificates.
 - Module for creating infrastructure for hosting a static website with CloudFront and S3.
 
+[0.3.0]: https://github.com/vytautaskubilius/infrastructure-modules/compare/v0.2.4...v0.3.0
 [0.2.3]: https://github.com/vytautaskubilius/infrastructure-modules/compare/v0.2.3...v0.2.4
 [0.2.3]: https://github.com/vytautaskubilius/infrastructure-modules/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/vytautaskubilius/infrastructure-modules/compare/v0.2.1...v0.2.2
