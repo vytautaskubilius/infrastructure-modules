@@ -5,9 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2022-01-20
+
+### Added
+
+- The `security/iam/oidc` module for creating an IAM OpenID Connect Provider.
+
 ## [0.3.0] - 2021-10-09
 
-## Changed
+### Changed
 
 - The `route53_dns_record` module now requires the DNS record name to be provided as a value instead of it being read
   in from the map key.
@@ -15,13 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.4] - 2021-08-30
 
-## Changed
+### Changed
 
 - The WordPress instance module no longer references hardcoded domain name parameters.
 
 ## [0.2.3] - 2021-08-26
 
-## Changed
+### Changed
 
 - The `vpc_security_group_ids` argument is used instead of `security_groups` when creating the WordPress AWS instance.
   - This is done to avoid a persistent diff that the previously used argument was causing as it is only meant to be used
@@ -29,20 +35,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.2] - 2021-08-26
 
-## Changed
+### Changed
 
 - The command for the WordPress instance backup cronjob was incorrect - this has now been fixed.
 
 ## [0.2.1] - 2021-08-25
 
-## Changed
+### Changed
 
 - VPC and Route53 Hosted Zone modules no longer accept tag variables, and don't create tags as part of deployment. 
 Instead, the tags should be specified via the `default_tags` block in the `aws` provider when deploying the modules.
 
 ## [0.2.0] - 2021-08-25
 
-## Added
+### Added
 
 - Module for creating a VPC.
 - Module for creating a Route53 hosted zone.
@@ -65,6 +71,7 @@ Instead, the tags should be specified via the `default_tags` block in the `aws` 
 - Module for creating auto-validating ACM certificates.
 - Module for creating infrastructure for hosting a static website with CloudFront and S3.
 
+[0.4.0]: https://github.com/vytautaskubilius/infrastructure-modules/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/vytautaskubilius/infrastructure-modules/compare/v0.2.4...v0.3.0
 [0.2.3]: https://github.com/vytautaskubilius/infrastructure-modules/compare/v0.2.3...v0.2.4
 [0.2.3]: https://github.com/vytautaskubilius/infrastructure-modules/compare/v0.2.2...v0.2.3
