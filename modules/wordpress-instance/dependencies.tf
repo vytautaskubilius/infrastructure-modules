@@ -14,16 +14,6 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-data "template_file" "user_data" {
-  template = file("${path.module}/user-data.sh")
-
-  vars = {
-    domain                       = var.domain
-    mysql_root_password          = data.aws_ssm_parameter.mysql_root_password.value
-    mysql_wordpressuser_password = data.aws_ssm_parameter.mysql_wordpressuser_password.value
-  }
-}
-
 data "aws_ssm_parameter" "mysql_root_password" {
   name = "${var.domain}_mysql_root_password"
 }

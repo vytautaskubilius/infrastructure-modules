@@ -3,7 +3,11 @@ resource "aws_instance" "wordpress" {
   instance_type          = var.instance_type
   key_name               = var.key_pair_name
   subnet_id              = var.subnet_id
-  user_data              = data.template_file.user_data.rendered
+  user_data              = templatefile("${path.module}/user-data.sh", {
+    domain                       = var.domain
+    mysql_root_password          = data.aws_ssm_parameter.mysql_root_password.value
+    mysql_wordpressuser_password = data.aws_ssm_parameter.mysql_wordpressuser_password.value
+  })
   iam_instance_profile   = aws_iam_instance_profile.wordpress.name
   vpc_security_group_ids = [aws_security_group.wordpress.id]
 }
@@ -116,4 +120,3 @@ resource "aws_route53_record" "www" {
   records = [aws_instance.wordpress.public_ip]
   ttl     = 300
 }
-
